@@ -12,9 +12,9 @@
     <h1>Редактировать статью</h1>
     <div th:each="el : ${post}">
         <form method="post">
-            <input type="text" name="title" th:value="${el.title}" placeholder="Насвание статьи" class="form-control"><br>
+            <input type="text" name="title" th:value="${el.title}" placeholder="Название статьи" class="form-control"><br>
             <input type="text" name="anons" th:value="${el.anons}" placeholder="Анонс" class="form-control"><br>
-            <textarea type="text" name="full_text" th:text="${el.full_text}" placeholder="Текст" class="form-control"/>
+            <textarea type="text" name="full_text" th:text="${el.full_text}" placeholder="Текст статьи" class="form-control"/>
             <button type="submit" class="btn btn-success">Изменить</button>
         </form>
     </div>
