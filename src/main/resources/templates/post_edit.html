@@ -10,6 +10,7 @@
 <header th:insert="components/header :: header" ></header>
 <div class="container mt-5 mb-5">
     <h1>Редактировать статью</h1>
+    <h3 th:text="${error}"/>
     <div th:each="el : ${post}">
         <form method="post">
             <input type="text" name="title" th:value="${el.title}" placeholder="Название статьи" class="form-control"><br>

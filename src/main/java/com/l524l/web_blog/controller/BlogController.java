@@ -77,12 +77,21 @@ public class BlogController {
                            Model model) {
 
         Post post = postRepository.findById(ID).orElseThrow();
-        post.setTitle(title);
-        post.setAnons(anons);
-        post.setFull_text(full_text);
-        postRepository.save(post);
-
-        return "redirect:/blog";
+        if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
+            model.addAttribute("error","Все поля должны быть заполнены!");
+            Optional<Post> post2 = postRepository.findById(ID);
+            ArrayList<Post> res = new ArrayList<>();
+            post2.ifPresent(res::add);
+            model.addAttribute("post", res);
+            return "post_edit";
+        }else {
+            post.setTitle(title);
+            post.setAnons(anons);
+            post.setFull_text(full_text);
+            postRepository.save(post);
+            postRepository.save(post);
+            return "redirect:/blog";
+        }
     }
 
     @PostMapping("/blog/post{ID}/delete")
