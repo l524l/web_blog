@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class BlogController {
@@ -21,7 +20,10 @@ public class BlogController {
     @GetMapping("/blog")
     public String blog(Model model) {
         Iterable<Post> posts = postRepository.findAll();
-        model.addAttribute("posts", posts);
+        List<Post> posts1 = new LinkedList<Post>((Collection<? extends Post>) posts);
+        Collections.reverse(posts1);
+
+        model.addAttribute("posts", posts1);
         return "blog_page";
     }
 

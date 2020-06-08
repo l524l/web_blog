@@ -14,7 +14,7 @@
     <div th:each="el : ${post}" class="alert-info mt-2 md-3 pl-2">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
-        <p th:text="${el.views}"></p>
+        <p th:text="${'Просмотров: ' + el.views}"></p>
         <a th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success">Редактировать</a>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
           Удалить

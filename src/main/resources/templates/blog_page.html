@@ -11,13 +11,16 @@
 
         <div class="container mt-5">
             <h1>Title</h1>
-            <div th:each="el : ${posts}" class="alert-info mt-2 md-3">
-                <h3 th:text="${el.title}"/>
-                <p th:text="${el.anons}" />
-                <a th:href="'/blog/post' + ${el.ID}" class="btn btn-success">Детальнее</a>
+            <div th:each="el : ${posts}" class="list-group">
+                <a th:href="'/blog/post' + ${el.ID}" class="list-group-item list-group-item-action m-2">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 th:text="${el.title}" class="mb-1"/>
+                    </div>
+                    <p th:text="${el.anons}" class="mb-1"/>
+                    <small th:text="${'Просмотров: ' + el.views}" class="text-muted"></small>
+                </a>
             </div>
         </div>
-
         <footer th:insert="components/footer :: footer"></footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
