@@ -11,21 +11,22 @@
 
         <main role="main">
             <!-- Main jumbotron for a primary marketing message or call to action -->
-            <div class="jumbotron">
-                <div class="container">
-                    <h1 class="display-3">My blog</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
-                </div>
+            <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <h1 class="display-4">Myblog</h1>
+                <p class="lead">Блог для изучения Spring Framework</p>
+              </div>
             </div>
 
             <div class="container">
                 <!-- Example row of columns -->
                 <div class="row">
-                    <div th:each="el : ${posts}" class="col-md-4">
-                        <h2 th:text="${el.title}"/>
-                        <p th:text="${el.anons}" />
-                        <p><a th:href="'/blog/post' + ${el.ID}" class="btn btn-secondary" role="button">Детальнее</a></p>
+                    <div th:each="el : ${posts}" class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 th:text="${el.title}" class="card-title"/>
+                            <p th:text="${el.anons}" class="card-text"/>
+                            <a th:href="'/blog/post' + ${el.ID}">Детальнее</a>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -35,4 +36,7 @@
         <footer th:insert="components/footer :: footer"></footer>
 
     </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 </html>
