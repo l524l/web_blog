@@ -10,9 +10,11 @@
         <header th:insert="components/header :: header" ></header>
 
         <div class="container mt-5">
-            <h1>Title</h1>
+            <div class="container pt-5">
+                <h1>Блог</h1>
+            </div>
             <div th:each="el : ${posts}" class="list-group">
-                <a th:href="'/blog/post' + ${el.ID}" class="list-group-item list-group-item-action m-2">
+                <a th:href="'/blog/post' + ${el.ID}" class="list-group-item list-group-item-action m-2 shadow rounded">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 th:text="${el.title}" class="mb-1"/>
                     </div>

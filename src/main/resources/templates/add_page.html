@@ -10,8 +10,10 @@
 
     <body>
         <header th:insert="components/header :: header" ></header>
-            <div class="container mt-5 mb-5">
-                <h1>Создать новую статью</h1>
+            <div class="container mt-5">
+                <div class="container pt-5">
+                    <h1>Создать новую статью</h1>
+                </div>
                 <h3 th:text="${error}"/>
                 <form action="/blog/add" method="post">
                     <div>

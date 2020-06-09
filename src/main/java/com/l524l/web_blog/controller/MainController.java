@@ -17,15 +17,13 @@ public class MainController {
     @GetMapping("/")
     public String greeting(Model model) {
         Iterable<Post> posts = postRepository.findAll();
-        List<Post> posts1 = new LinkedList<Post>((Collection<? extends Post>) posts);
+        List<Post> posts1 = new LinkedList<>((Collection<? extends Post>) posts);
         Collections.reverse(posts1);
-        LinkedList<Post> postLinkedList = new LinkedList<Post>();
+        LinkedList<Post> postLinkedList = new LinkedList<>();
         Iterator<Post> iter = posts1.iterator();
-        for (int i = 0; i < 6 && posts.iterator().hasNext() ;i++){
+        for (int i = 0;i < 6 && iter.hasNext();i++){
             postLinkedList.add(iter.next());
         }
-
-
         model.addAttribute("posts", postLinkedList);
         return "main_page";
     }

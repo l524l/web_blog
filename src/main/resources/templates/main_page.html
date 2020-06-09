@@ -19,9 +19,10 @@
             </div>
 
             <div class="container">
+                <h1>Что нового</h1>
                 <!-- Example row of columns -->
                 <div class="row">
-                    <div th:each="el : ${posts}" class="card m-2" style="width: 18rem;">
+                    <div th:each="el : ${posts}" class="card m-2 shadow rounded" style="width: 18rem;">
                         <div class="card-body">
                             <h5 th:text="${el.title}" class="card-title"/>
                             <p th:text="${el.anons}" class="card-text"/>
