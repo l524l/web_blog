@@ -10,10 +10,7 @@
 <header th:insert="components/header :: header"></header>
 
 <div class="container mt-5">
-    <div class="container pt-5">
-        <h1>Пост</h1>
-    </div>
-    <div th:each="el : ${post}" class="alert-info mt-2 md-3 pl-2 shadow p-3 mb-5 rounded">
+    <div th:each="el : ${post}" class="alert-info mt-5 md-3 pl-2 shadow p-3 mb-5 rounded">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
         <p th:text="${'Просмотров: ' + el.views}"></p>
