@@ -67,9 +67,9 @@ public class BlogController {
 
     @PostMapping("/find")
     public String findPost(@RequestParam(name = "title") String title, Model model){
-        model.addAttribute("post", postService.getByTitle(title));
+        model.addAttribute("posts", postService.getByTitle(title));
 
-        return "post_page";
+        return "blog_page";
     }
 
     @PostMapping("/blog/post{ID}/edit")
