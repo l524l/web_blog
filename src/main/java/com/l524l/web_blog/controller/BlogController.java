@@ -2,7 +2,9 @@ package com.l524l.web_blog.controller;
 
 import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.service.impl.PostServiceImpl;
+import com.l524l.web_blog.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,23 +17,31 @@ import java.util.List;
 
 @Controller
 public class BlogController {
+
+    final private PostServiceImpl postService;
+    final private UserServiceImpl userService;
+
     @Autowired
-    private PostServiceImpl postService;
+    public BlogController(PostServiceImpl postService, UserServiceImpl userService) {
+        this.userService = userService;
+        this.postService = postService;
+    }
 
     @GetMapping("/blog")
     public String blog(Model model) {
         List<Post> posts = postService.getAll();
         Collections.reverse(posts);
-
         model.addAttribute("posts", posts);
         return "blog_page";
     }
 
+    @PreAuthorize("hasAuthority('GOD')")
     @GetMapping("/blog/add")
     public String addPostPage(Model model) {
         return "add_page";
     }
 
+    @PreAuthorize("hasAuthority('GOD')")
     @PostMapping("/blog/add")
     public String addPost(@RequestParam(name = "title", defaultValue = "") String title,
                           @RequestParam(name = "anons", defaultValue = "") String anons,

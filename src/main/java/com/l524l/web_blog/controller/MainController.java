@@ -14,8 +14,13 @@ import java.util.List;
 
 @Controller
 public class MainController {
+
+    final private PostService postService;
     @Autowired
-    private PostService postService;
+    public MainController(PostService postService) {
+        this.postService = postService;
+    }
+
     @GetMapping("/")
     public String greeting(Model model) {
         List<Post> posts = postService.getAll();

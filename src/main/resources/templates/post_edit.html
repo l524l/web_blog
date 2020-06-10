@@ -14,7 +14,7 @@
     </div>
     <h3 th:text="${error}"/>
     <div th:each="el : ${post}">
-        <form method="post">
+        <form th:action="@{'/blog/post'+ ${el.ID} +'/edit'}" method="post">
             <div>
                 <div class="form-group">
                     <label>Название статьи</label>

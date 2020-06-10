@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class PostServiceImpl implements PostService {
 
+    final private PostRepository postRepository;
+
     @Autowired
-    private PostRepository postRepository;
+    public PostServiceImpl(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     @Override
     public void deletePost(long ID) {
