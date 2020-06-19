@@ -13,6 +13,11 @@
             <li th:each="el : ${users}" class="list-group-item">
                 <p th:text="${el.name}"/>
                 <p th:text="${el.password}"/>
+                <p th:text="${el.roles}"/>
+                <form th:action="@{/god-panel}" method="post">
+                    <input name="id" type="hidden" th:value="${el.id}">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
             </li>
         </ul>
     </div>

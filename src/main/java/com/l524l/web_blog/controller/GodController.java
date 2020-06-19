@@ -6,7 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/god-panel")
@@ -25,5 +27,11 @@ public class GodController {
     public String godPanelPage(Model model){
         model.addAttribute("users", userService.getAll());
         return "god_page";
+    }
+
+    @PostMapping
+    public String delUser(@RequestParam(name = "id") Long id, Model model){
+        userService.deleteUser(id);
+        return "redirect:/god-panel";
     }
 }
