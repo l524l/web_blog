@@ -1,6 +1,5 @@
 package com.l524l.web_blog.service.impl;
 
-import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.models.User;
 import com.l524l.web_blog.repo.UserRepository;
 import com.l524l.web_blog.service.UserService;
