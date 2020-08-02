@@ -14,8 +14,9 @@
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
         <p th:text="${'Просмотров: ' + el.views}"></p>
-        <a th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success">Редактировать</a>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+        <p th:text="${'Автор: ' + el.getAuthorName()}"></p>
+        <a sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success">Редактировать</a>
+        <button sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
           Удалить
         </button>
         </div>

@@ -15,20 +15,34 @@
                     <h1>Создать новую статью</h1>
                 </div>
                 <h3 th:text="${error}"/>
-                <form action="#" th:action="@{/blog/add}" method="post">
+                <form action="#" th:object="${post}" th:action="@{/blog/add}" method="post">
                     <div>
                         <div class="form-group">
                             <label>Название статьи</label>
-                            <input type="text" name="title" placeholder="Название статьи" class="form-control md-5">
+                            <input type="text" th:field="*{title}" placeholder="Название статьи" class="form-control md-5">
                         </div>
                         <div class="form-group">
                             <label>Анонс статьи</label>
-                            <input type="text" name="anons" placeholder="Анонс" class="form-control md-5">
+                            <input type="text" th:field="*{anons}" placeholder="Анонс" class="form-control md-5">
                         </div>
                         <div class="form-group">
                             <label>Текст статьи</label>
-                            <textarea type="text" name="full_text" placeholder="Текст статьи" class="form-control md-5"></textarea>
+                            <textarea type="text" th:field="*{full_text}" placeholder="Текст статьи" class="form-control md-5"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Категория</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Спорт</option>
+                                <option>Наука</option>
+                                <option>Религия</option>
+                                <option>Культура</option>
+                                <option>Еда</option>
+                                <option>Транспорт</option>
+                                <option>Политика</option>
+                                <option>Происшествия</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-success">Создать</button>
                     </div>
                 </form>

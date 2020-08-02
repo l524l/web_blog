@@ -8,13 +8,23 @@
     </head>
     <body>
         <header th:insert="components/header :: header" ></header>
-
-
-
         <div class="container mt-5">
+            <div class="container pt-3">
+                <ul class="list-group list-group-horizontal">
+                    <button type="button" class="list-group-item list-group-item-action">Спорт</button>
+                    <button type="button" class="list-group-item list-group-item-action">Наука</button>
+                    <button type="button" class="list-group-item list-group-item-action">Религия</button>
+                    <button type="button" class="list-group-item list-group-item-action">Культура</button>
+                    <button type="button" class="list-group-item list-group-item-action">Еда</button>
+                    <button type="button" class="list-group-item list-group-item-action">Транспорт</button>
+                    <button type="button" class="list-group-item list-group-item-action">Политика</button>
+                    <button type="button" class="list-group-item list-group-item-action">Происшествия</button>
+                </ul>
+            </div>
             <div class="container pt-5">
                 <h1>Свежие новости</h1>
             </div>
+
             <div th:each="el : ${posts}" class="list-group">
                 <a th:href="'/blog/post' + ${el.ID}" class="list-group-item list-group-item-action m-2 shadow rounded">
                     <div class="d-flex w-100 justify-content-between">

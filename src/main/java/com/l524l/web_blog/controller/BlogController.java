@@ -1,16 +1,15 @@
 package com.l524l.web_blog.controller;
 
 import com.l524l.web_blog.models.Post;
+import com.l524l.web_blog.models.User;
 import com.l524l.web_blog.service.impl.PostServiceImpl;
 import com.l524l.web_blog.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,31 +34,36 @@ public class BlogController {
         return "blog_page";
     }
 
-    @PreAuthorize("hasAuthority('GOD')")
+    @PreAuthorize("hasAuthority('GOD') || hasAuthority('ADMIN')")
     @GetMapping("/blog/add")
     public String addPostPage(Model model) {
+        model.addAttribute("post", new Post());
         return "add_page";
     }
 
-    @PreAuthorize("hasAuthority('GOD')")
+    @PreAuthorize("hasAuthority('GOD') || hasAuthority('ADMIN')")
     @PostMapping("/blog/add")
-    public String addPost(@RequestParam(name = "title", defaultValue = "") String title,
-                          @RequestParam(name = "anons", defaultValue = "") String anons,
-                          @RequestParam(name = "full_text", defaultValue = "") String full_text,
+    public String addPost(@AuthenticationPrincipal User user, @ModelAttribute Post post,
                           Model model) {
+        String title = post.getTitle();
+        String anons = post.getAnons();
+        String full_text = post.getFull_text();
 
         if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
             model.addAttribute("error","Все поля должны быть заполнены!");
             return "add_page";
         }else {
-            Post post = new Post(title.trim(), anons.trim(), full_text.trim());
+            post.setTitle(title);
+            post.setAnons(anons);
+            post.setFull_text(full_text);
+            post.setAuthor(user);
             postService.savePost(post);
             return "redirect:/blog";
         }
     }
 
     @GetMapping("/blog/post{ID}")
-    public String blogMoreInfo(@PathVariable(value = "ID") long ID, Model model) {
+    public String blogMoreInfo(@AuthenticationPrincipal User user, @PathVariable(value = "ID") long ID, Model model) {
         Post post = postService.getById(ID);
         post.setViews(post.getViews() + 1);
         postService.savePost(post);

@@ -1,9 +1,6 @@
 package com.l524l.web_blog.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Post {
@@ -13,14 +10,31 @@ public class Post {
     private String title, anons, full_text;
     private int views;
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
     public Post() {
     }
 
-    public Post(String title, String anons, String full_text) {
+    public String getAuthorName(){
+        return author != null ? author.getUsername() : "NONE";
+    }
 
+    public Post(String title, String anons, String full_text, User author) {
+        this.author = author;
         this.title = title;
         this.anons = anons;
         this.full_text = full_text;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public long getID() {
