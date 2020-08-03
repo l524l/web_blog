@@ -2,6 +2,8 @@ package com.l524l.web_blog.controller;
 
 import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.models.User;
+import com.l524l.web_blog.models.enumes.Categories;
+import com.l524l.web_blog.models.enumes.Role;
 import com.l524l.web_blog.service.impl.PostServiceImpl;
 import com.l524l.web_blog.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class BlogController {
             post.setAnons(anons);
             post.setFull_text(full_text);
             post.setAuthor(user);
+            //post.setCategories(Collections.singleton(Categories.SPORT));
             post.setDate(LocalDateTime.now());
             postService.savePost(post);
             return "redirect:/blog";
@@ -76,11 +79,20 @@ public class BlogController {
         return "post_page";
     }
 
+
+
     @GetMapping("/blog/post{ID}/edit")
     public String blogEdit(@PathVariable(value = "ID") long ID, Model model) {
         Post post = postService.getById(ID);
         model.addAttribute("post", post);
         return "post_edit";
+    }
+
+    @GetMapping("/blog/category")
+    public String sortByCategory(@RequestParam(name = "category") Categories category, Model model){
+        model.addAttribute("posts", postService.getByCategories(category));
+
+        return "blog_page";
     }
 
     @PostMapping("/find")

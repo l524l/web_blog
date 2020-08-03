@@ -1,6 +1,7 @@
 package com.l524l.web_blog.service.impl;
 
 import com.l524l.web_blog.models.Post;
+import com.l524l.web_blog.models.enumes.Categories;
 import com.l524l.web_blog.repo.PostRepository;
 import com.l524l.web_blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,11 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAll() {
         postRepository.findAll();
         return postRepository.findAll();
+    }
+
+    @Override
+    public List<Post> getByCategories(Categories categories) {
+        List<Post> posts = postRepository.findByCategories(categories);
+        return posts;
     }
 }

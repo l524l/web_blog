@@ -38,5 +38,10 @@ public class MainController {
 
         return "error";
     }
+    @GetMapping("/about")
+    public String aboutPage(Model model){
+
+        return "about";
+    }
 
 }
