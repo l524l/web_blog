@@ -26,7 +26,11 @@
                         <div class="card-body">
                             <h5 th:text="${el.title}" class="card-title"/>
                             <p th:text="${el.anons}" class="card-text"/>
-                            <a th:href="'/blog/post' + ${el.ID}">Детальнее</a>
+                            <div class="clearfix">
+                                <p class="float-left" th:text="${'Дата: ' + el.getDate()}"></p>
+                                <a class="float-right" th:href="'/blog/post' + ${el.ID}">Детальнее</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

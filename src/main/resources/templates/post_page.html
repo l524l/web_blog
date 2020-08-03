@@ -13,12 +13,26 @@
     <div th:each="el : ${post}" class="alert-info mt-5 md-3 pl-2 shadow p-3 mb-5 rounded">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
-        <p th:text="${'Просмотров: ' + el.views}"></p>
-        <p th:text="${'Автор: ' + el.getAuthorName()}"></p>
-        <a sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success">Редактировать</a>
-        <button sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-          Удалить
-        </button>
+
+
+
+        <div class="clearfix">
+            <p class="float-left mb-1" th:text="${'Автор: ' + el.getAuthorName()}"></p>
+
+            <div class="float-right">
+                <p class="mb-1" th:text="${'Просмотров: ' + el.views}"></p>
+                <p class="mb-1" th:text="${'Дата: ' + el.getDate()}"></p>
+            </div>
+
+        </div>
+        <div class="clearfix">
+            <button sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" type="button" class="btn btn-danger btn-sm float-right ml-1" data-toggle="modal" data-target="#exampleModal">
+                Удалить
+            </button>
+            <a sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success btn-sm float-right">Редактировать</a>
+        </div>
+
+
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">

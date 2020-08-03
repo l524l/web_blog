@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -57,6 +60,7 @@ public class BlogController {
             post.setAnons(anons);
             post.setFull_text(full_text);
             post.setAuthor(user);
+            post.setDate(LocalDateTime.now());
             postService.savePost(post);
             return "redirect:/blog";
         }

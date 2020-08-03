@@ -1,6 +1,11 @@
 package com.l524l.web_blog.models;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Post {
@@ -9,8 +14,7 @@ public class Post {
     private long ID;
     private String title, anons, full_text;
     private int views;
-
-
+    private LocalDateTime date;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
@@ -27,6 +31,14 @@ public class Post {
         this.title = title;
         this.anons = anons;
         this.full_text = full_text;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public User getAuthor() {
