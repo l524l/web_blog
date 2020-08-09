@@ -4,7 +4,6 @@ import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.models.enumes.Categories;
 import com.l524l.web_blog.repo.PostRepository;
 import com.l524l.web_blog.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

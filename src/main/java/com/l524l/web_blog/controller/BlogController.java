@@ -3,10 +3,9 @@ package com.l524l.web_blog.controller;
 import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.models.User;
 import com.l524l.web_blog.models.enumes.Categories;
-import com.l524l.web_blog.models.enumes.Role;
 import com.l524l.web_blog.service.impl.PostServiceImpl;
 import com.l524l.web_blog.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,18 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class BlogController {
+    private static final Logger log = Logger.getLogger(BlogController.class);
 
     final private PostServiceImpl postService;
     final private UserServiceImpl userService;
 
-    @Autowired
     public BlogController(PostServiceImpl postService, UserServiceImpl userService) {
         this.userService = userService;
         this.postService = postService;
@@ -48,7 +45,8 @@ public class BlogController {
 
     @PreAuthorize("hasAuthority('GOD') || hasAuthority('ADMIN')")
     @PostMapping("/blog/add")
-    public String addPost(@AuthenticationPrincipal User user, @ModelAttribute Post post,
+    public String addPost(@AuthenticationPrincipal User user,
+                          @ModelAttribute Post post,
                           Model model) {
         String title = post.getTitle();
         String anons = post.getAnons();

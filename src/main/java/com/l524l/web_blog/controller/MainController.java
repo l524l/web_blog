@@ -2,7 +2,7 @@ package com.l524l.web_blog.controller;
 
 import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
+    private static final Logger log = Logger.getLogger(MainController.class);
     final private PostService postService;
-    @Autowired
+
     public MainController(PostService postService) {
         this.postService = postService;
     }
@@ -35,12 +35,10 @@ public class MainController {
     }
     @GetMapping("/error")
     public String error(Model model){
-
         return "error";
     }
     @GetMapping("/about")
     public String aboutPage(Model model){
-
         return "about";
     }
 

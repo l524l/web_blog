@@ -16,6 +16,37 @@ public class User implements UserDetails {
     private long Id;
     private String name;
     private String password;
+    private String email;
+    private String activationCode;
+    private User author;
+    public boolean active;
+    @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
 
     public User getAuthor() {
         return author;
@@ -24,14 +55,6 @@ public class User implements UserDetails {
     public void setAuthor(User author) {
         this.author = author;
     }
-
-    private User author;
-
-    @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
     public long getId() {
         return Id;
     }
@@ -79,7 +102,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 
     public void setPassword(String password) {

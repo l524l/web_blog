@@ -22,12 +22,18 @@
     <div th:if="${param.logout}">
         You have been logged out.
     </div>
-    <form class="form-signin" th:action="@{/registration}" method="post">
+    <div>
+        [[${error}]]
+    </div>
+    <form class="form-signin" th:object="${user}" th:action="@{/registration}" method="post">
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
-        <input type="text" class="form-control mb-3" name="username" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
+        <input type="text" class="form-control mb-3" th:field="*{name}" placeholder="Login" required autofocus>
+        <input type="email" class="form-control mb-3" th:field="*{email}" placeholder="example@example.com" required>
+        <input type="password" class="form-control mb-3" th:field="*{password}" placeholder="Password" required>
+        <input type="password" class="form-control mb-3" name="passwordcomfirm" placeholder="Confirm password" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        <a href="/">На главную -></a>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
     </form>
 </div>

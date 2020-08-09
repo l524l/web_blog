@@ -15,26 +15,27 @@
 
 </head>
 <body class="text-center">
-<div class="container-sm d-flex justify-content-center mt-5">
+    <div class="container-sm d-flex justify-content-center mt-5">
+        <form class="form-signin" th:action="@{/login}" method="post">
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div>
+                [[${message}]]
+            </div>
 
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+            <h1 class="h3 mb-3 font-weight-normal">Войти</h1>
+            <a href="/registration">Зарегистрироваться</a>
+            <input type="text" class="form-control mb-3" name="username" placeholder="Email address" required autofocus>
+            <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
 
-    <form class="form-signin" th:action="@{/login}" method="post">
-        <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <h1 class="h3 mb-3 font-weight-normal">Войти</h1>
-        <a href="/registration">Зарегистрироваться</a>
-        <input type="text" class="form-control mb-3" name="username" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
-    </form>
-
-</div>
-
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            <a href="/">На главную -></a>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+        </form>
+    </div>
 </body>
 </html>
