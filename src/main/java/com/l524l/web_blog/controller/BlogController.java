@@ -3,6 +3,7 @@ package com.l524l.web_blog.controller;
 import com.l524l.web_blog.models.Post;
 import com.l524l.web_blog.models.User;
 import com.l524l.web_blog.models.enumes.Categories;
+import com.l524l.web_blog.models.enumes.Role;
 import com.l524l.web_blog.service.impl.PostServiceImpl;
 import com.l524l.web_blog.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
@@ -68,10 +69,13 @@ public class BlogController {
     }
 
     @GetMapping("/blog/post{ID}")
-    public String blogMoreInfo(@AuthenticationPrincipal User user, @PathVariable(value = "ID") long ID, Model model) {
+    public String blogMoreInfo(@AuthenticationPrincipal User user,
+                               @PathVariable(value = "ID") long ID,
+                               Model model) {
         Post post = postService.getById(ID);
         post.setViews(post.getViews() + 1);
         postService.savePost(post);
+        model.addAttribute("authUser",user.getName());
         model.addAttribute("post", post);
 
         return "post_page";
@@ -80,10 +84,14 @@ public class BlogController {
 
 
     @GetMapping("/blog/post{ID}/edit")
-    public String blogEdit(@PathVariable(value = "ID") long ID, Model model) {
+    public String blogEdit(@PathVariable(value = "ID") long ID,
+                           @AuthenticationPrincipal User user,
+                           Model model) {
         Post post = postService.getById(ID);
-        model.addAttribute("post", post);
-        return "post_edit";
+        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))){
+            model.addAttribute("post", post);
+            return "post_edit";
+        }else return "error";
     }
 
     @GetMapping("/blog/category")
@@ -102,27 +110,42 @@ public class BlogController {
 
     @PostMapping("/blog/post{ID}/edit")
     public String editPost(@PathVariable(value = "ID") long ID,
+                           @AuthenticationPrincipal User user,
                            @RequestParam(name = "title") String title,
                            @RequestParam(name = "anons") String anons,
                            @RequestParam(name = "full_text") String full_text,
                            Model model) {
         Post post = postService.getById(ID);
-        if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
-            model.addAttribute("error","Все поля должны быть заполнены!");
+        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))){
+            if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
+                model.addAttribute("error","Все поля должны быть заполнены!");
+                model.addAttribute("post", post);
+                return "post_edit";
+            }else {
+                post.setTitle(title);
+                post.setAnons(anons);
+                post.setFull_text(full_text);
+                postService.savePost(post);
+                return "redirect:/blog";
+            }
+        } else {
+            model.addAttribute("error","Нет прав для редактирования!");
             model.addAttribute("post", post);
             return "post_edit";
-        }else {
-            post.setTitle(title);
-            post.setAnons(anons);
-            post.setFull_text(full_text);
-            postService.savePost(post);
-            return "redirect:/blog";
         }
     }
 
     @PostMapping("/blog/post{ID}/delete")
-    public String editPost(@PathVariable(value = "ID") long ID, Model model) {
-        postService.deletePost(ID);
-        return "redirect:/blog";
+    public String editPost(@PathVariable(value = "ID") long ID,
+                           @AuthenticationPrincipal User user,
+                           Model model) {
+        Post post = postService.getById(ID);
+        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))) {
+            postService.deletePost(ID);
+            return "redirect:/blog";
+        }else {
+            return "error";
+        }
+
     }
 }

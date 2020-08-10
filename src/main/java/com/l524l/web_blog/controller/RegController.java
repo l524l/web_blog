@@ -1,14 +1,11 @@
 package com.l524l.web_blog.controller;
 
 import com.l524l.web_blog.models.User;
-import com.l524l.web_blog.models.enumes.Role;
 import com.l524l.web_blog.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 
 @Controller
 public class RegController {

@@ -16,16 +16,17 @@
 </head>
 <body class="text-center">
 <div class="container-sm d-flex justify-content-center mt-5">
-    <div th:if="${param.error}">
-        Пользователь с таким логином и паролем не найден!.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <div>
-        [[${error}]]
-    </div>
+
     <form class="form-signin" th:object="${user}" th:action="@{/registration}" method="post">
+        <div th:if="${param.error}">
+        Пользователь с таким логином и паролем не найден!.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <div>
+            [[${error}]]
+        </div>
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
         <input type="text" class="form-control mb-3" th:field="*{name}" placeholder="Login" required autofocus>
         <input type="email" class="form-control mb-3" th:field="*{email}" placeholder="example@example.com" required>

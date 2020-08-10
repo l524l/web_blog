@@ -58,11 +58,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             if (!StringUtils.isEmpty(user.getEmail())){
                 String message = String.format("Activation link for %s: http://localhost:5240/activate/%s",user.getName(),user.getActivationCode());
-
-
                 mailSender.sendEmail(user.getEmail(),"Activation code",message);
             }
-
             return userRepository.save(user);
         }
         return null;
