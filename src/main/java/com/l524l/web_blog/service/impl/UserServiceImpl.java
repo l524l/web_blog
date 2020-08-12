@@ -1,5 +1,7 @@
 package com.l524l.web_blog.service.impl;
 
+import com.l524l.web_blog.exception.PasswordConfirmError;
+import com.l524l.web_blog.exception.UserExistError;
 import com.l524l.web_blog.models.User;
 import com.l524l.web_blog.models.enumes.Role;
 import com.l524l.web_blog.repo.UserRepository;
@@ -48,7 +50,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(User user) throws PasswordConfirmError, UserExistError {
+        if (!user.isPasswordCorrect()) throw new PasswordConfirmError();
         if (userRepository.findByName(user.getName()).isEmpty()){
             user.setPassword(passwordEncoder.encode(user.getPassword().trim()));
             user.setName(user.getName().trim());
@@ -62,7 +65,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
             return userRepository.save(user);
         }
-        return null;
+        throw new UserExistError();
     }
 
     @Override
@@ -82,7 +85,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return false;
         }
         user.setActivationCode(null);
-        user.setActive(true);
+        user.setEnable(true);
         userRepository.save(user);
         return true;
     }

@@ -3,6 +3,8 @@ package com.l524l.web_blog.models;
 import com.l524l.web_blog.models.enumes.Categories;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,7 +12,16 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ID;
-    private String title, anons, full_text;
+
+    @Size(max = 50,message = "Максимальная длинна 50 символов")
+    @NotBlank(message = "Поле должно быть заполнено")
+    private String title;
+    @Size(max = 100,message = "Максимальная длинна 100 символов")
+    @NotBlank(message = "Поле должно быть заполнено")
+    private String anons;
+    @Size(max = 100000,message = "Слишком длинный пост! Максимальная длинна 100000 символов")
+    @NotBlank(message = "Поле должно быть заполнено")
+    private String full_text;
     private int views;
     private LocalDateTime date;
     @ManyToOne(fetch = FetchType.EAGER)

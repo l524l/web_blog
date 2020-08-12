@@ -24,14 +24,35 @@
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
-        <div>
+        <div th:if="${error != null}" class="alert alert-danger" role="alert">
             [[${error}]]
         </div>
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
-        <input type="text" class="form-control mb-3" th:field="*{name}" placeholder="Login" required autofocus>
-        <input type="email" class="form-control mb-3" th:field="*{email}" placeholder="example@example.com" required>
-        <input type="password" class="form-control mb-3" th:field="*{password}" placeholder="Password" required>
-        <input type="password" class="form-control mb-3" name="passwordcomfirm" placeholder="Confirm password" required>
+        <div class="mt-3">
+            <input type="text" th:class="${nameError}? ${'form-control is-invalid'}:${'form-control'}" th:field="*{name}" placeholder="Login" autofocus>
+            <div class="invalid-feedback">
+                Минимальная длинна имени 3 символа
+            </div>
+        </div>
+        <div class="mt-3">
+            <input type="email" th:class="${emailError}? ${'form-control is-invalid'}:${'form-control'}" th:field="*{email}" placeholder="example@example.com">
+            <div class="invalid-feedback">
+                Не корректный Email
+            </div>
+        </div>
+        <div class="mt-3">
+            <input type="password" th:class="${passwordError}? ${'form-control is-invalid'}:${'form-control'}" th:field="*{password}" placeholder="Password">
+            <div class="invalid-feedback">
+                Минимальная длинна пароля 6 символов
+            </div>
+        </div>
+        <div class="mt-3 mb-4">
+            <input type="password" th:class="${confirmError}? ${'form-control is-invalid'}:${'form-control'}" aria-describedby="confirmPass" th:field="*{passwordConfirm}" placeholder="Confirm password">
+            <div id="confirmPass" class="invalid-feedback">
+                Пароли не совпадают
+            </div>
+        </div>
+
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
         <a href="/">На главную -></a>

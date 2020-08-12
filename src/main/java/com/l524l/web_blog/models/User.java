@@ -5,6 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.Payload;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -14,30 +18,49 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
+
+    @Size(min = 3,message = "Логин должен быть больше 3 символов")
+    @NotBlank(message = "Поле должно быть заполнено")
     private String name;
+
+    @Size(min = 6, message = "Пароль должен быть больше 6 символов")
+    @NotBlank(message = "Поле должно быть заполнено")
     private String password;
+
+    @Transient
+    private String passwordConfirm;
+
+    @Email(message = "Не корректный email",
+            regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
     private String email;
     private String activationCode;
-    private User author;
-    public boolean active;
+    public boolean enable;
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public boolean isActive() {
-        return active;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm.trim();
+    }
+
+    public boolean isPasswordCorrect(){
+        return password.equals(passwordConfirm);
+    }
+
+    public void setEnable(boolean active) {
+        this.enable = active;
     }
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public String getActivationCode() {
@@ -48,13 +71,6 @@ public class User implements UserDetails {
         this.activationCode = activationCode;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
     public long getId() {
         return Id;
     }
@@ -68,7 +84,7 @@ public class User implements UserDetails {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     @Override
@@ -102,11 +118,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return enable;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public Set<Role> getRoles() {
