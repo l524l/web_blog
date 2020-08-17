@@ -47,13 +47,6 @@ public class Post {
         return author != null ? author.getUsername() : "NONE";
     }
 
-    public Post(String title, String anons, String full_text, User author) {
-        this.author = author;
-        this.title = title;
-        this.anons = anons;
-        this.full_text = full_text;
-    }
-
     public LocalDateTime getDate() {
         return date;
     }
@@ -71,7 +64,6 @@ public class Post {
     }
 
     public long getID() {
-
         return ID;
     }
 
@@ -84,7 +76,7 @@ public class Post {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getAnons() {
@@ -92,7 +84,7 @@ public class Post {
     }
 
     public void setAnons(String anons) {
-        this.anons = anons;
+        this.anons = anons.trim();
     }
 
     public String getFull_text() {
@@ -100,7 +92,7 @@ public class Post {
     }
 
     public void setFull_text(String full_text) {
-        this.full_text = full_text;
+        this.full_text = full_text.trim();
     }
 
     public int getViews() {

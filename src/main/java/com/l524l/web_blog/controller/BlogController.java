@@ -11,8 +11,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -47,21 +50,26 @@ public class BlogController {
     @PreAuthorize("hasAuthority('GOD') || hasAuthority('ADMIN')")
     @PostMapping("/blog/add")
     public String addPost(@AuthenticationPrincipal User user,
-                          @ModelAttribute Post post,
+                          @Valid @ModelAttribute Post post,
+                          BindingResult bindingResult,
                           Model model) {
         String title = post.getTitle();
         String anons = post.getAnons();
         String full_text = post.getFull_text();
 
-        if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
-            model.addAttribute("error","Все поля должны быть заполнены!");
+        if (bindingResult.hasErrors()) {
+            FieldError titleError = bindingResult.getFieldError("title");
+            FieldError anonsError = bindingResult.getFieldError("anons");
+            FieldError textError = bindingResult.getFieldError("full_text");
+            model.addAttribute("titleError", titleError);
+            model.addAttribute("anonsError", anonsError);
+            model.addAttribute("textError", textError);
             return "add_page";
-        }else {
+        } else {
             post.setTitle(title);
             post.setAnons(anons);
             post.setFull_text(full_text);
             post.setAuthor(user);
-            //post.setCategories(Collections.singleton(Categories.SPORT));
             post.setDate(LocalDateTime.now());
             postService.savePost(post);
             return "redirect:/blog";
@@ -75,34 +83,32 @@ public class BlogController {
         Post post = postService.getById(ID);
         post.setViews(post.getViews() + 1);
         postService.savePost(post);
-        model.addAttribute("authUser",user.getName());
+        model.addAttribute("authUser", user.getName());
         model.addAttribute("post", post);
 
         return "post_page";
     }
-
-
 
     @GetMapping("/blog/post{ID}/edit")
     public String blogEdit(@PathVariable(value = "ID") long ID,
                            @AuthenticationPrincipal User user,
                            Model model) {
         Post post = postService.getById(ID);
-        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))){
+        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))) {
             model.addAttribute("post", post);
             return "post_edit";
-        }else return "error";
+        } else return "error";
     }
 
     @GetMapping("/blog/category")
-    public String sortByCategory(@RequestParam(name = "category") Categories category, Model model){
+    public String sortByCategory(@RequestParam(name = "category") Categories category, Model model) {
         model.addAttribute("posts", postService.getByCategories(category));
 
         return "blog_page";
     }
 
     @PostMapping("/find")
-    public String findPost(@RequestParam(name = "title") String title, Model model){
+    public String findPost(@RequestParam(name = "title") String title, Model model) {
         model.addAttribute("posts", postService.getByTitle(title));
 
         return "blog_page";
@@ -111,27 +117,30 @@ public class BlogController {
     @PostMapping("/blog/post{ID}/edit")
     public String editPost(@PathVariable(value = "ID") long ID,
                            @AuthenticationPrincipal User user,
-                           @RequestParam(name = "title") String title,
-                           @RequestParam(name = "anons") String anons,
-                           @RequestParam(name = "full_text") String full_text,
+                           @Valid @ModelAttribute Post post,
+                           BindingResult bindingResult,
                            Model model) {
-        Post post = postService.getById(ID);
-        if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))){
-            if (title.trim().isEmpty() || anons.trim().isEmpty() || full_text.trim().isEmpty()){
-                model.addAttribute("error","Все поля должны быть заполнены!");
+        Post post2 = postService.getById(ID);
+        if (user.getAuthorities().contains(Role.GOD) || ((post2.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))) {
+            if (bindingResult.hasErrors()) {
+                FieldError titleError = bindingResult.getFieldError("title");
+                FieldError anonsError = bindingResult.getFieldError("anons");
+                FieldError textError = bindingResult.getFieldError("full_text");
+                model.addAttribute("titleError", titleError);
+                model.addAttribute("anonsError", anonsError);
+                model.addAttribute("textError", textError);
+
                 model.addAttribute("post", post);
                 return "post_edit";
-            }else {
-                post.setTitle(title);
-                post.setAnons(anons);
-                post.setFull_text(full_text);
-                postService.savePost(post);
+            } else {
+                post2.setTitle(post.getTitle());
+                post2.setAnons(post.getAnons());
+                post2.setFull_text(post.getFull_text());
+                postService.savePost(post2);
                 return "redirect:/blog";
             }
         } else {
-            model.addAttribute("error","Нет прав для редактирования!");
-            model.addAttribute("post", post);
-            return "post_edit";
+            return "error";
         }
     }
 
@@ -143,9 +152,8 @@ public class BlogController {
         if (user.getAuthorities().contains(Role.GOD) || ((post.getAuthor().getId() == user.getId()) && user.getAuthorities().contains(Role.ADMIN))) {
             postService.deletePost(ID);
             return "redirect:/blog";
-        }else {
+        } else {
             return "error";
         }
-
     }
 }

@@ -14,20 +14,28 @@
                 <div class="pt-5">
                     <h3>Создать новую статью</h3>
                 </div>
-                <h5 th:text="${error}"/>
                 <form action="#" th:object="${post}" th:action="@{/blog/add}" method="post">
                     <div>
-                        <div class="form-group">
+                        <div class="form-group  md-5">
                             <label>Название статьи</label>
-                            <input type="text" th:field="*{title}" placeholder="Название статьи" class="form-control md-5">
+                            <input th:class="${titleError != null}? ${'form-control is-invalid'}:${'form-control'}" type="text" name="title" th:value="*{title}" placeholder="Название статьи">
+                            <div th:if="${titleError != null}" class="invalid-feedback">
+                                [[${titleError.getDefaultMessage()}]]
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  md-5">
                             <label>Анонс статьи</label>
-                            <input type="text" th:field="*{anons}" placeholder="Анонс" class="form-control md-5">
+                            <input th:class="${anonsError != null}? ${'form-control is-invalid'}:${'form-control'}" type="text" name="anons" th:value="*{anons}" placeholder="Анонс">
+                            <div th:if="${anonsError != null}" class="invalid-feedback">
+                                [[${anonsError.getDefaultMessage()}]]
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group md-5">
                             <label>Текст статьи</label>
-                            <textarea type="text" th:field="*{full_text}" placeholder="Текст статьи" class="form-control md-5"></textarea>
+                            <textarea th:class="${textError != null}? ${'form-control is-invalid'}:${'form-control'}" type="text" th:field="*{full_text}" placeholder="Текст статьи"></textarea>
+                            <div th:if="${textError != null}" class="invalid-feedback">
+                                [[${textError.getDefaultMessage()}]]
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Категория</label>
