@@ -1,34 +1,36 @@
-<nav th:fragment="header" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="/">24News</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">24News</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Главная<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/blog">Новости</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/about">О нас</a>
-            </li>
-            <li sec:authorize="hasAuthority('GOD')" class="nav-item active">
-                <a class="nav-link" href="/god-panel">Панель администратора</a>
-            </li>
-            <li sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" class="nav-item active">
-                <a class="nav-link" href="/blog/add">+ Новая статья</a>
-            </li>
-        </ul>
-        <form th:action="@{/find}" method="post" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" name="title" type="text" placeholder="Поиск" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
-        </form>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" class="nav-item active" method="post">
-            <button class="btn btn-outline-success my-2 ml-3 my-sm-0" type="submit">Выйти</button>
-        </form>
-        <a sec:authorize="!isAuthenticated()" class="btn btn-outline-success my-2 ml-3 my-sm-0" href="/login" role="button">Войти</a>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Главная<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/blog">Новости</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">О нас</a>
+                </li>
+                <li sec:authorize="hasAuthority('GOD')" class="nav-item active">
+                    <a class="nav-link" href="/god-panel">Панель администратора</a>
+                </li>
+                <li sec:authorize="hasAuthority('GOD') || hasAuthority('ADMIN')" class="nav-item active">
+                    <a class="nav-link" href="/blog/add">+ Новая статья</a>
+                </li>
+            </ul>
+            <form th:action="@{/find}" method="post" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" name="title" type="text" placeholder="Поиск" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+            </form>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" class="nav-item active" method="post">
+                <button class="btn btn-outline-success my-2 ml-3 my-sm-0" type="submit">Выйти</button>
+            </form>
+            <a sec:authorize="!isAuthenticated()" class="btn btn-outline-success my-2 ml-3 my-sm-0" href="/login" role="button">Войти</a>
+        </div>
     </div>
 </nav>

@@ -3,6 +3,7 @@
 <head>
     <title th:text="Пост"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
@@ -13,9 +14,6 @@
     <div th:each="el : ${post}" class="alert-info mt-5 md-3 pl-2 shadow p-3 mb-5 rounded">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.full_text}"/>
-
-
-
         <div class="clearfix">
             <p class="float-left mb-1" th:text="${'Автор: ' + el.getAuthorName()}"></p>
 
