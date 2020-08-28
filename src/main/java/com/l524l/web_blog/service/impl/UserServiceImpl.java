@@ -1,5 +1,6 @@
 package com.l524l.web_blog.service.impl;
 
+import com.l524l.web_blog.exception.EmailExistError;
 import com.l524l.web_blog.exception.PasswordConfirmError;
 import com.l524l.web_blog.exception.UserExistError;
 import com.l524l.web_blog.models.User;
@@ -8,6 +9,7 @@ import com.l524l.web_blog.repo.UserRepository;
 import com.l524l.web_blog.service.MailSender;
 import com.l524l.web_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    @Value("${https.domain}")
+    private String domain;
 
     @Autowired
     private MailSender mailSender;
@@ -50,7 +55,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(User user) throws PasswordConfirmError, UserExistError {
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User saveUser(User user) throws PasswordConfirmError, UserExistError, EmailExistError {
+        if (getByEmail(user.getEmail()) != null)throw new EmailExistError();
         if (!user.isPasswordCorrect()) throw new PasswordConfirmError();
         if (userRepository.findByName(user.getName()).isEmpty()){
             user.setPassword(passwordEncoder.encode(user.getPassword().trim()));
@@ -60,7 +71,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setRoles(Collections.singleton(Role.USER));
 
             if (!StringUtils.isEmpty(user.getEmail())){
-                String message = String.format("Activation link for %s: http://localhost:5240/activate/%s",user.getName(),user.getActivationCode());
+                String message = String.format("Activation link for %s: https://%s/activate/%s", user.getName(), domain,
+                        user.getActivationCode());
                 mailSender.sendEmail(user.getEmail(),"Activation code",message);
             }
             return userRepository.save(user);

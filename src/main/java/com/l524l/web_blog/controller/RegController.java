@@ -1,5 +1,6 @@
 package com.l524l.web_blog.controller;
 
+import com.l524l.web_blog.exception.EmailExistError;
 import com.l524l.web_blog.exception.PasswordConfirmError;
 import com.l524l.web_blog.exception.UserExistError;
 import com.l524l.web_blog.models.User;
@@ -47,6 +48,10 @@ public class RegController {
             } catch (UserExistError userExistError) {
                 model.addAttribute("user",user);
                 model.addAttribute("error","Пользователь с таким именем существует");
+                return "registration";
+            } catch (EmailExistError emailExistError) {
+                model.addAttribute("user",user);
+                model.addAttribute("error","Email занят");
                 return "registration";
             }
             return "redirect:/login";

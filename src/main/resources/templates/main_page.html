@@ -40,7 +40,133 @@
 
             <div class="container">
                 <h1>Категории</h1>
-
+                <div id="carouselExampleControls" class="carousel slide d-none d-md-block d-xl-block" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="card col" style="width: 18rem;">
+                                    <img th:src="..." class="card-img-top" alt="орлор">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Спорт</h5>
+                                        <p class="card-text">Новости из мира спорта </p>
+                                        <a href="/blog/category?category=SPORT" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Наука</h5>
+                                        <p class="card-text">Новости из мира науки</p>
+                                        <a href="/blog/category?category=SCIENCE" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Религия</h5>
+                                        <p class="card-text">Новости из мира религии</p>
+                                        <a href="/blog/category?category=RELIGION" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Культура</h5>
+                                        <p class="card-text">Новости культуры и исторических событий</p>
+                                        <a href="/blog/category?category=CULTURE" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Еда</h5>
+                                        <p class="card-text">Новинки и интересные рецепты, подборки блюд на любой вкус и цвет</p>
+                                        <a href="/blog/category?category=FOOD" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Транспорт</h5>
+                                        <p class="card-text">Новинки автопрома, революции способов перемещения и многое другое</p>
+                                        <a href="/blog/category?category=TRANSPORT" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Политика</h5>
+                                        <p class="card-text">Свежие политические новости разных стран мира</p>
+                                        <a href="/blog/category?category=POLITIC" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Происшествия</h5>
+                                        <p class="card-text">Чрезвычайные происшествия и последние события в обществе</p>
+                                        <a href="/blog/category?category=ACCIDENTS" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                                <div class="card col" style="width: 18rem;">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Всё</h5>
+                                        <p class="card-text">Свежие новости на сегодняшний момент</p>
+                                        <a href="/blog" class="btn btn-primary">К категории</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="container pt-3 d-sm-block d-md-none d-xl-none">
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item">
+                            <a href="/blog/category?category=SPORT" class="list-group-item list-group-item-action">Спорт</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=SCIENCE" class="list-group-item list-group-item-action">Наука</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=RELIGION" class="list-group-item list-group-item-action">Религия</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=CULTURE" class="list-group-item list-group-item-action">Культура</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=FOOD" class="list-group-item list-group-item-action">Еда</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=TRANSPORT" class="list-group-item list-group-item-action">Транспорт</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=POLITIC" class="list-group-item list-group-item-action">Политика</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog/category?category=ACCIDENTS" class="list-group-item list-group-item-action">Происшествия</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog" class="list-group-item list-group-item-action">Все</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </main>
 
