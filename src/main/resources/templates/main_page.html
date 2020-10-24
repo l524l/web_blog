@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </head>
     <body class="pt-5">
@@ -45,7 +46,7 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 <div class="card col" style="width: 18rem;">
-                                    <img th:src="..." class="card-img-top" alt="орлор">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="орлор">
                                     <div class="card-body">
                                         <h5 class="card-title">Спорт</h5>
                                         <p class="card-text">Новости из мира спорта </p>
@@ -53,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Наука</h5>
                                         <p class="card-text">Новости из мира науки</p>
@@ -61,7 +62,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Религия</h5>
                                         <p class="card-text">Новости из мира религии</p>
@@ -73,7 +74,7 @@
                         <div class="carousel-item">
                             <div class="row">
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Культура</h5>
                                         <p class="card-text">Новости культуры и исторических событий</p>
@@ -81,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Еда</h5>
                                         <p class="card-text">Новинки и интересные рецепты, подборки блюд на любой вкус и цвет</p>
@@ -89,7 +90,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Транспорт</h5>
                                         <p class="card-text">Новинки автопрома, революции способов перемещения и многое другое</p>
@@ -101,7 +102,7 @@
                         <div class="carousel-item">
                             <div class="row">
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Политика</h5>
                                         <p class="card-text">Свежие политические новости разных стран мира</p>
@@ -109,7 +110,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Происшествия</h5>
                                         <p class="card-text">Чрезвычайные происшествия и последние события в обществе</p>
@@ -117,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="card col" style="width: 18rem;">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="/static/img/volga.jpg" class="card-img-top" alt="/static/img/volga.jpg">
                                     <div class="card-body">
                                         <h5 class="card-title">Всё</h5>
                                         <p class="card-text">Свежие новости на сегодняшний момент</p>
@@ -173,7 +174,13 @@
         <footer th:insert="components/footer :: footer"></footer>
 
     </body>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+        $("#").on('click', function(){
+            alert("send");
+            $.post( "/blog/post6/delete", { _csrf: "14c10eb8-22b8-499a-aca1-142e9635dc5b"} );
+        });
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
 </html>
