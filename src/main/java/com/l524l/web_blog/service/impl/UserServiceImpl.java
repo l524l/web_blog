@@ -36,7 +36,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private MailSender mailSender;
 
-    @Autowired
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     private PasswordEncoder passwordEncoder;
 
     @Override
