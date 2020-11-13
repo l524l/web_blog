@@ -17,5 +17,4 @@ public class WebBlogApplication {
 		log.info("Program has been started");
 		SpringApplication.run(WebBlogApplication.class, args);
 	}
-
 }
