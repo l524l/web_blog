@@ -9,7 +9,6 @@
 </head>
 <body class="pt-5">
 <header th:insert="components/header :: header"></header>
-
 <div class="container mt-5">
     <div th:each="el : ${post}" class="alert-info mt-5 md-3 pl-2 shadow p-3 mb-5 rounded">
         <h3 th:text="${el.title}"/>
@@ -21,7 +20,6 @@
                 <p class="mb-1" th:text="${'Просмотров: ' + el.views}"></p>
                 <p class="mb-1" th:text="${'Дата: ' + el.getDate()}"></p>
             </div>
-
         </div>
         <div th:if="${#authorization.expression('hasAuthority(''GOD'')') || (#authorization.expression('hasAuthority(''ADMIN'')') && el.getAuthorName().equals(authUser))}" class="clearfix">
             <button type="button" class="btn btn-danger btn-sm float-right ml-1" data-toggle="modal" data-target="#exampleModal">
@@ -29,8 +27,6 @@
             </button>
             <a th:href="'/blog/post' + ${el.ID} + '/edit'" class="btn btn-success btn-sm float-right">Редактировать</a>
         </div>
-
-
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -55,8 +51,6 @@
           </div>
         </div>
     </div>
-
-
 <footer th:insert="components/footer :: footer"></footer>
 </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
