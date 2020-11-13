@@ -56,7 +56,6 @@ public class BlogController {
         String title = post.getTitle();
         String anons = post.getAnons();
         String full_text = post.getFull_text();
-
         if (bindingResult.hasErrors()) {
             FieldError titleError = bindingResult.getFieldError("title");
             FieldError anonsError = bindingResult.getFieldError("anons");
@@ -85,7 +84,6 @@ public class BlogController {
         postService.savePost(post);
         model.addAttribute("authUser", user.getName());
         model.addAttribute("post", post);
-
         return "post_page";
     }
 
