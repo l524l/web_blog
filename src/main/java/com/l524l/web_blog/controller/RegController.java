@@ -79,7 +79,6 @@ public class RegController {
         } else {
             model.addAttribute("message","Аккаунт не активирован");
         }
-
         return "login";
     }
 
