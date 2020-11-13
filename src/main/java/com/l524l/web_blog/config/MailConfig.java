@@ -28,10 +28,6 @@ public class MailConfig {
         mailSender.setPassword(password);
         mailSender.setPort(port);
         mailSender.setProtocol(protocol);
-
-
-
-
         return mailSender;
     }
 
