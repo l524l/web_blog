@@ -107,7 +107,7 @@ public class BlogController {
 
     @PostMapping("/find")
     public String findPost(@RequestParam(name = "title") String title, Model model) {
-        model.addAttribute("posts", postService.getByTitle(title));
+        model.addAttribute("posts", postService.findBySubstring(title));
 
         return "blog_page";
     }

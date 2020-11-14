@@ -6,6 +6,7 @@ import com.l524l.web_blog.repo.PostRepository;
 import com.l524l.web_blog.service.PostService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,15 @@ public class PostServiceImpl implements PostService {
     public List<Post> getByCategories(Categories categories) {
         List<Post> posts = postRepository.findByCategories(categories);
         return posts;
+    }
+    public List<Post> findBySubstring(String substring){
+        List<Post> all = getAll();
+        List<Post> findPosts = new ArrayList<Post>();
+        for (Post post : all) {
+            if (post.getTitle().contains(substring)) {
+                findPosts.add(post);
+            }
+        }
+        return findPosts;
     }
 }
